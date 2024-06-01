@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление сотрудника</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .header {
+            background-color: #FFB300;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .menu {
+            display: flex;
+            gap: 20px;
+        }
+        .header .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+        }
+        .form-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .form-box input, .form-box select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-box input[type="date"] {
+            background-color: #f7f7f7;
+        }
+        .submit-button {
+            grid-column: span 2;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #FFB300;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .submit-button:hover {
+            background-color: #E59400;
+        }
+        .logout {
+            background-color: #FFB300;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .logout:hover {
+            background-color: #E59400;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="menu">
+            <a href="#">Поиск сотрудника</a>
+            <a href="#">Добавить отдел</a>
+            <a href="#">Добавление должности</a>
+        </div>
+        <div>
+            Витальев Виталий Витальевич
+            <button class="logout">Выйти</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-box">
+            <input type="text" placeholder="ФИО">
+            <select>
+                <option value="" disabled selected>Пол</option>
+                <option value="Мужской">Мужской</option>
+                <option value="Женский">Женский</option>
+            </select>
+            <input type="text" placeholder="Дата рождения" onfocus="(this.type='date')" onblur="(this.type='text')">
+            <input type="text" placeholder="Адрес проживания">
+            <input type="tel" placeholder="Телефон">
+            <input type="email" placeholder="Почта">
+            <input type="text" placeholder="Паспорт">
+            <input type="text" placeholder="СНИЛС">
+            <input type="text" placeholder="ИНН">
+            <input type="text" placeholder="Номер трудовой книжки">
+            <input type="text" placeholder="Номер военного билета">
+            <input type="text" placeholder="Дата принятия" onfocus="(this.type='date')" onblur="(this.type='text')">
+            <select>
+                <option value="" disabled selected>Отдел</option>
+                <option value="Отдел кадров">Отдел кадров</option>
+                <option value="Отдел продаж">Отдел продаж</option>
+                <option value="ИТ отдел">ИТ отдел</option>
+            </select>
+            <select>
+                <option value="" disabled selected>Должность</option>
+                <option value="Менеджер">Менеджер</option>
+                <option value="Инженер">Инженер</option>
+                <option value="Аналитик">Аналитик</option>
+            </select>
+            <button class="submit-button">Добавить</button>
+        </div>
+    </div>
+</body>
+</html>

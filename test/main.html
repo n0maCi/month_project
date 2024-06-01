@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление сотрудниками</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Добавить сотрудника</a></li>
+                <li><a href="#">Добавить отдел</a></li>
+                <li><a href="#">Добавление должности</a></li>
+                <li class="user-info"><span>Виталев Виталий Витальевич</span><button>Выйти</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="search-section">
+            <label for="search">Поиск сотрудника</label>
+            <input type="text" id="search" placeholder="ФИО">
+            <button>Найти</button>
+        </section>
+        <section class="actions-section">
+            <span>Выбрано: 1</span>
+            <button>Информация</button>
+            <button>Отчёт ЗП</button>
+            <button>Увольнение</button>
+        </section>
+        <section class="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>ФИО</th>
+                        <th>Пол</th>
+                        <th>Дата рождения</th>
+                        <th>Телефон</th>
+                        <th>Дата приёма</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Иванов Иван Иванович</td>
+                        <td>Мужской</td>
+                        <td>2001-05-05</td>
+                        <td>88005553535</td>
+                        <td>2024-05-05</td>
+                        <td><input type="checkbox" checked></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
