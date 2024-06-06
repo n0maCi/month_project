@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление сотрудника</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+        }
+        .container input, .container select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .container .form-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .container .form-group div {
+            flex: 1;
+        }
+        .container .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .container button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            background-color: #FFB300;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .container button:hover {
+            background-color: #d87f00;
+        }
+        .back-button {
+            background-color: #ccc;
+            color: black;
+            max-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <form class="container" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <select id="pageSelect">
+                <option value="{{ department.id }}" disabled selected>{{ department.title }}</option>
+                {% for department in departments %}
+                <option value="{% url 'info_user_add' id=employeer.id department_id=department.id %}">{{ department.title }}</option>
+                {% endfor %}
+            </select>
+            <select name="job_title">
+                <option value="" disabled selected>{{ employeer.job_title.title }}</option>
+                {% for job in jobs %}
+                <option value="{{ job.id }}">{{ job.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <input type="text" placeholder="ФИО" value="{{ employeer.username }}" name="username">
+        <div class="form-group">
+            <div>
+                <select name="gender">
+                    <option value="" disabled selected>{{ employeer.gender }}</option>
+                    <option value="М">М</option>
+                    <option value="Ж">Ж</option>
+                </select>
+            </div>
+            <div>
+                <input type="date" placeholder="Дата рождения" onfocus="(this.type='date')" onblur="(this.type='text')" value="{{ employeer.birthday }}" name="birthday">
+            </div>
+        </div>
+        <input type="text" placeholder="Адрес проживания" value="{{ employeer.residence_address }}" name="residence_address">
+        <div class="form-group">
+            <div>
+                <input type="tel" placeholder="Телефон" value="{{ employeer.phone }}" name="phone">
+            </div>
+            <div>
+                <input type="email" placeholder="Почта" value="{{ employeer.email }}" name="email">
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <input type="text" placeholder="Паспорт" value="{{ employeer.passport }}" name="passport">
+            </div>
+            <div>
+                <input type="text" placeholder="Снилс" value="{{ employeer.insurance_number }}" name="insurance_number">
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <input type="text" placeholder="ИНН" value="{{ employeer.individual_tax_number }}" name="individual_tax_number">
+            </div>
+            <div>
+                <input type="text" placeholder="Номер трудовой книжки" value="{{ employeer.work_book_number }}" name="work_book_number">
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <input type="text" placeholder="Номер военного билета" value="{{ employeer.military_ticket }}" name="military_ticket">
+            </div>
+            <div>
+                <input type="date" placeholder="Дата принятия" onfocus="(this.type='date')" onblur="(this.type='text')" value="{{ employeer.employment_date }}">
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="back-button" onclick="location.href='{% url 'profile' %}'" type="button">Назад</button>
+            <button type="submit">Сохранить</button>
+        </div>
+    </form>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление данных</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .header {
+            background-color: #FFB300;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .logout {
+            background-color: #FFB300;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .header .logout:hover {
+            background-color: #E59400;
+        }
+        .container {
+            padding: 20px;
+        }
+        .form-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .form-box input, .form-box select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .submit-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #FFB300;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .submit-button:hover {
+            background-color: #E59400;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f0f0f0;
+        }
+        .delete-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: red;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="{% url 'logout' %}?next=/leader" class="header">
+            {{ user.username }}
+            {% csrf_token %}
+            <button class="logout" type="submit">Выйти</button>
+        </form>
+    <div class="container">
+        <form class="form-box" method="post">
+            {% csrf_token %}
+            <select name="user">
+                <option value="" disabled selected>Сотрудник</option>
+                {% for employee in employees %}
+                <option value="{{ employee.id }}">{{ employee.username }}</option>
+                {% endfor %}
+            </select>
+            <input type="date" placeholder="Дата" onfocus="(this.type='date')" onblur="(this.type='text')" name="date">
+            <input type="number" placeholder="Кол-во часов" name="amount">
+            <button class="submit-button" type="submit">Добавить</button>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Дата</th>
+                    <th>Кол-во часов</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hour in hours %}
+                <tr>
+                    <td>{{ hour.user.username }}</td>
+                    <td>{{ hour.date }}</td>
+                    <td>{{ hour.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

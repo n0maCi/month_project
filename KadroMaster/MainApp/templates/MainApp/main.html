@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление сотрудниками</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .header {
+            background-color: #FFB300;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .menu {
+            display: flex;
+            gap: 20px;
+        }
+        .header .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            padding: 5px;
+            font-size: 16px;
+        }
+        .search-box button {
+            padding: 5px 15px;
+            font-size: 16px;
+            background-color: #FFB300;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .search-box button:hover {
+            background-color: #E59400;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .actions button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #FFB300;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .actions button:hover {
+            background-color: #E59400;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .logout {
+            background-color: #FFB300;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .logout:hover {
+            background-color: #E59400;
+        }
+        .search-box button {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="menu">
+            <a href="{% url 'personal' %}">Добавить сотрудника</a>
+            <a href="{% url 'department' %}">Добавить отдел</a>
+            <a href="{% url 'job' %}">Добавление должности</a>
+            <a href="{% url 'access' %}">Управление доступами</a>
+        </div>
+        <form method="post" action="{% url 'logout' %}?next=/">
+            {{ user.username }}
+            {% csrf_token %}
+            <button class="logout" type="submit">Выйти</button>
+        </form>
+    </div>
+    <div class="container">
+        <div class="search-box">
+            <input type="text" placeholder="ФИО">
+            <input type="text" placeholder="Таб. номер">
+            <button>Найти</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>ФИО</th>
+                    <th>Таб номер</th>
+                    <th>Пол</th>
+                    <th>Дата рождения</th>
+                    <th>Телефон</th>
+                    <th>Дата приёма</th>
+                    <th>Информация</th>
+                    <th>Отчёт ЗП</th>
+                    <th>Увольнение</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employeers %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.username }}</td>
+                    <td>{{ employee.personnel_number }}</td>
+                    <td>{{ employee.gender }}</td>
+                    <td>{{ employee.birthday }}</td>
+                    <td>{{ employee.phone }}</td>
+                    <td>{{ employee.employment_date }}</td>
+                    <td><button type="submit" onclick="location.href='{% url 'info_user' id=employee.id %}'">Инфо</button></td>
+                    <td><button type="submit" onclick="location.href='{% url 'salary' id=employee.id %}'">Отчёт ЗП</button></td>
+                    <td><button type="submit" onclick="location.href='{% url 'profile_del' id=employee.id job_title=employee.job_title.id %}'">Уволить</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

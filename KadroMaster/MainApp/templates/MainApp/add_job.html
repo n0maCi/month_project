@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление отделами</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .header {
+            background-color: #FFB300;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .menu {
+            display: flex;
+            gap: 20px;
+        }
+        .header .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #FFB300;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .search-box button:hover {
+            background-color: #E59400;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            background-color: #e0e0e0;
+        }
+        .logout {
+            background-color: #FFB300;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .logout:hover {
+            background-color: #E59400;
+        }
+        .delete-icon {
+            cursor: pointer;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="menu">
+            <a href="{% url 'personal' %}">Добавить сотрудника</a>
+            <a href="{% url 'department' %}">Добавить отдел</a>
+            <a href="{% url 'profile' %}">Поиск сотрудника</a>
+        </div>
+        <form method="post" action="{% url 'logout' %}?next=/">
+            {{ user.username }}
+            {% csrf_token %}
+            <button class="logout" type="submit">Выйти</button>
+        </form>
+    </div>
+    <div class="container">
+        <form class="search-box" method="post">
+             {% csrf_token %}
+            <input type="text" placeholder="Название" name="title">
+            <select name="departament_title">
+                <option value="" disabled selected>Отделы</option>
+                {% for department in departments %}
+                <option value="{{ department.id }}">{{ department.title }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" placeholder="ЗП/час" name="salary_per_hour">
+            <button type="find">Найти</button>
+            <button type="submit">Добавить</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название должности</th>
+                    <th>Отдел</th>
+                    <th>Зарплата в час</th>
+                    <th>Кол-во работников</th>
+                    <th>Удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in jobs %}
+                <tr>
+                    <td>{{ job.title }}</td>
+                    <td>{{ job.departament_title.title }}</td>
+                    <td>{{ job.salary_per_hour }} рублей</td>
+                    <td>{{ job.amount }}</td>
+                    <td><button type="submit" onclick="location.href='{% url 'job_del' title=job.title amount=job.amount %}'">Удалить</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

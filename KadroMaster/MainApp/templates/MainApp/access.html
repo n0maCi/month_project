@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уровни доступа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 900px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #FFB300;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .header button:hover {
+            background-color: #d87f00;
+        }
+        .header .back-button {
+            background-color: #FFB300;
+        }
+        .form-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .form-group input, .form-group select {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 15px;
+            border: 1px solid #ccc;
+            text-align: left;
+            background-color: #f2f2f2;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        .delete-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #d87f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="location.href='{% url 'profile' %}'">Назад</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>ФИО</th>
+                    <th>Пол</th>
+                    <th>Должность</th>
+                    <th>Пароль</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for personnel in personnels %}
+                <tr>
+                    <td>{{ personnel.id }}</td>
+                    <td>{{ personnel.username }}</td>
+                    <td>{{ personnel.gender }}</td>
+                    <td>{{ personnel.job_title.title }}</td>
+                    <td>{{ personnel.password_kadr }}</td>
+                </tr>
+                {% endfor %}
+                <!-- Другие записи -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
